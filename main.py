@@ -84,10 +84,14 @@ class InfoScreen(tk.Frame, Screen):
             ax.set_ylabel(InfoScreen.screen_info.unit)
 
         for key, data in InfoScreen.screen_info.data_factory().items():
-            if key != "percent": # Already handled by line graphs
-                bar = ax.bar(key, data)
-                if data != 0:
-                    ax.bar_label(bar, fmt=f"{data:.3g} {InfoScreen.screen_info.unit or ''}", label_type="center", padding=2)
+            if key != "percent" and data != 0:  # Already handled by line graphs
+                bar = ax.bar(key, data, edgecolor="#cccccc")
+                ax.bar_label(
+                    bar,
+                    fmt=f"{data:.3g} {InfoScreen.screen_info.unit or ''}",
+                    label_type="center",
+                    padding=2,
+                )
 
         FigureCanvasTkAgg(fig, self).get_tk_widget().grid(
             row=1, column=5, columnspan=5, sticky="nsew"
