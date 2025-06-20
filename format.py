@@ -10,11 +10,24 @@ def format_figure(fig: Figure):
     sns.set_style("dark")
     sns.set_theme("poster", font="Segoe UI", font_scale=0.6)
 
-    fig.set_facecolor("#191818")
+    fig.set_facecolor("#333333")
     # fig.set_size_inches(10, 8, forward=True)
 
 
-def format_axes(ax: Axes, name: str):
+def format_bar_axes(ax: Axes):
+    ax.set_facecolor("#0d0d0d")
+    ax.grid(False)
+    ax.tick_params(axis="both", color="#cccccc", labelcolor="#cccccc")
+
+    ax.xaxis.label.set_color("#cccccc")
+    ax.yaxis.label.set_color("#cccccc")
+    ax.title.set_color("#cccccc")
+
+    for spine in ax.spines.values():
+        spine.set_color("#333333")
+
+
+def format_line_axes(ax: Axes, name: str):
     ax.set_ylim(0, 100)
     ax.set_xlabel("Time")  # X-label is always the same
     ax.set_ylabel(name)
@@ -30,4 +43,4 @@ def format_axes(ax: Axes, name: str):
     ax.title.set_color("#cccccc")
 
     for spine in ax.spines.values():
-        spine.set_color("#555555")
+        spine.set_color("#333333")

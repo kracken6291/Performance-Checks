@@ -8,7 +8,7 @@ from matplotlib.axes import Axes
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.lines import Line2D
 
-from format import format_axes
+from format import format_line_axes
 
 line_data_container = []
 
@@ -30,6 +30,7 @@ async def get_data(func: Callable) -> float:
         await data
     return data
 
+
 def create_line_graph(
     plot: Axes,
     func: Callable[[], float],
@@ -42,7 +43,7 @@ def create_line_graph(
     line.set_alpha(0.75)
 
     if format_axis:
-        format_axes(
+        format_line_axes(
             plot,
             name or func.__name__.removeprefix("get_").replace("_", " ").capitalize(),
         )
@@ -51,6 +52,7 @@ def create_line_graph(
         plot.set_ylim(y_lim[0], y_lim[1])
 
     line_data_container.append(LineData(line, plot, func, bool(not y_lim), None))
+    return plot
 
 
 async def update_line_data(line_data: LineData, max_capacity: int = 30):
@@ -81,6 +83,12 @@ async def animation_loop(
 ):
     while not stop_event.is_set():
         for line_data in line_data_container:
-            await update_line_data(line_data)
+            asyncio.create_task(update_line_data(line_data))
+
+        # Wait for all tasks to complete before redrawing the canvas
+        await asyncio.gather(
+            *[update_line_data(line_data) for line_data in line_data_container]
+        )
+
         canvas.draw()
         await asyncio.sleep(interval_ms / 1000)
