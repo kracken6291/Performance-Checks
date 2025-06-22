@@ -7,29 +7,8 @@ from desktop_notifier import Button, Notification, Urgency
 from app import GraphScreen, InfoScreen, MainApplication, bytes_to_gigabytes
 from notifier import DumpInfo, Notifier
 
-if __name__ == "__main__":
-    notifier = Notifier()
-    app = MainApplication()
 
-    app.register_screen("InfoScreen", InfoScreen)
-    app.register_screen("GraphScreen", GraphScreen)
-
-    def gb(i: float | int):
-        return round(bytes_to_gigabytes(i), 1)
-
-    # Define an action to signal the GUI to react (no direct Tkinter calls here)
-    def on_run_pressed():
-        app.show()
-        app.root.after(0, lambda: app.show_screen("GraphScreen"))
-
-    def handle_exit(*args):
-        notifier.stop()
-        app.stop()
-        sys.exit(0)
-
-    signal.signal(signal.SIGINT, handle_exit)
-    signal.signal(signal.SIGTERM, handle_exit)
-
+def create_conditional_notifications(notifier: Notifier) -> None:
     notifier.create_conditional_notification(
         Notification(
             title="CPU usage above 80%",
@@ -47,6 +26,15 @@ if __name__ == "__main__":
         ),
         lambda: psutil.virtual_memory().percent > 80,
     )
+
+
+def create_periodic_notifications(notifier: Notifier, app: MainApplication) -> None:
+    def gb(i: float | int):
+        return round(bytes_to_gigabytes(i), 1)
+
+    def on_run_pressed():
+        app.show()
+        app.root.after(0, lambda: app.show_screen("GraphScreen"))
 
     info = [
         DumpInfo("CPU Usage", lambda: psutil.cpu_percent(0.1), "cpu.log", "%"),
@@ -90,11 +78,31 @@ if __name__ == "__main__":
     ]
 
     notifier.periodically_send_data(
-        info, 3600, (Button("Run", on_pressed=on_run_pressed),)
+        info, 5, (Button("Run", on_pressed=on_run_pressed),)
     )
     notifier.periodically_send_data(
-        info2, 3600 + 30, (Button("Run", on_pressed=on_run_pressed),)
+        info2, 7, (Button("Run", on_pressed=on_run_pressed),)
     )
+
+
+def handle_exit(*args):
+    notifier.stop()
+    app.stop()
+    sys.exit(0)
+
+
+if __name__ == "__main__":
+    notifier = Notifier()
+    app = MainApplication()
+
+    app.register_screen("InfoScreen", InfoScreen)
+    app.register_screen("GraphScreen", GraphScreen)
+
+    create_conditional_notifications(notifier)
+    create_periodic_notifications(notifier, app)
+
+    signal.signal(signal.SIGINT, handle_exit)
+    signal.signal(signal.SIGTERM, handle_exit)
 
     try:
         app.run()
