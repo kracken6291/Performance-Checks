@@ -93,7 +93,7 @@ if __name__ == "__main__":
         info, 3600, (Button("Run", on_pressed=on_run_pressed),)
     )
     notifier.periodically_send_data(
-        info2, 3600+30, (Button("Run", on_pressed=on_run_pressed),)
+        info2, 3600 + 30, (Button("Run", on_pressed=on_run_pressed),)
     )
 
     try:
