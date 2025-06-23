@@ -12,7 +12,7 @@ def create_conditional_notifications(notifier: Notifier) -> None:
     notifier.create_conditional_notification(
         Notification(
             title="CPU usage above 80%",
-            message=f"Current Usage {psutil.cpu_percent()}",
+            message="Could be from opening new application or a more serious issue",
             urgency=Urgency.Critical,
         ),
         lambda: psutil.cpu_percent(0.1) > 80,
@@ -106,5 +106,5 @@ if __name__ == "__main__":
 
     try:
         app.run()
-    except (KeyboardInterrupt, SystemExit):
+    except (KeyboardInterrupt, SystemExit, Exception):
         handle_exit()

@@ -7,6 +7,7 @@ import tkinter.ttk as ttk
 from collections.abc import Callable
 from dataclasses import dataclass
 from itertools import chain
+from pathlib import Path
 from typing import Protocol, runtime_checkable
 
 import matplotlib.pyplot as plt
@@ -19,6 +20,8 @@ from format import (  # Assuming this formats the figure globally
 )
 from graphs import animation_loop, create_line_graph
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+
 
 def bytes_to_gigabytes(value: int | float) -> float:
     """Convert bytes to gigabytes."""
@@ -27,7 +30,7 @@ def bytes_to_gigabytes(value: int | float) -> float:
 
 @dataclass
 class InfoScreenData:
-    log_file: str
+    log_file: str | Path
     data_factory: Callable[[], dict[str, float]]
     graph_name: str
     unit: str | None = None  # Optional unit for the graph, e.g., "MB", "GHz"
@@ -194,12 +197,12 @@ class GraphScreen(tk.Frame, Screen):
 
         self.INFO_SCREEN_LOOKUP = {
             self.cpu_usage: InfoScreenData(
-                log_file="logs/cpu.log",
+                log_file=SCRIPT_DIR / "logs/cpu.log",
                 data_factory=lambda: psutil.cpu_stats()._asdict(),
                 graph_name="Extra CPU Info",
             ),
             self.v_mem_usage: InfoScreenData(
-                log_file="logs/ram.log",
+                log_file=SCRIPT_DIR / "logs/ram.log",
                 data_factory=lambda: {
                     k: bytes_to_gigabytes(v)
                     for k, v in psutil.virtual_memory()._asdict().items()
@@ -208,7 +211,7 @@ class GraphScreen(tk.Frame, Screen):
                 unit="GB",
             ),
             self.s_mem_usage: InfoScreenData(
-                log_file="logs/swap_mem.log",
+                log_file=SCRIPT_DIR / "logs/swap_mem.log",
                 data_factory=lambda: {
                     k: bytes_to_gigabytes(v)
                     for k, v in psutil.swap_memory()._asdict().items()
@@ -217,7 +220,7 @@ class GraphScreen(tk.Frame, Screen):
                 unit="GB",
             ),
             self.battery_usage: InfoScreenData(
-                log_file="logs/misc.log",
+                log_file=SCRIPT_DIR / "logs/misc.log",
                 data_factory=lambda: get_unique_proccess_memory_info(),
                 graph_name="Top 5 Process Memory Usage",
                 unit="GB",
@@ -258,7 +261,7 @@ class MainApplication:
         self.root.geometry("1920x1200")
         self.root.title("System Stats")
         self.root.protocol("WM_DELETE_WINDOW", self.root.withdraw)
-        self.root.tk.call("source", "azure.tcl")
+        self.root.tk.call("source", SCRIPT_DIR / "azure.tcl")
         self.root.tk.call("set_theme", "dark")
 
         self.root.columnconfigure(0, weight=1)
@@ -324,4 +327,6 @@ if __name__ == "__main__":
     app = MainApplication()
     app.register_screen("GraphScreen", GraphScreen)
     app.register_screen("InfoScreen", InfoScreen)
+    app.show_screen("GraphScreen")
+    app.show()
     app.run()

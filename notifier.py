@@ -40,23 +40,26 @@ class Notifier:
         for name in ["cpu.log", "misc.log", "ram.log", "swap_mem.log"]:
             self._log_lookup[name] = self._create_logger(name)
 
-    def _create_logger(self, file_name: str):
-        if not Path.is_dir(Path("logs").resolve()):
-            Path.mkdir(Path("logs").resolve())
+    def _create_logger(self, file_name: str) -> Logger:
+        script_dir = Path(__file__).resolve().parent
+        logs_dir = script_dir / "logs"
+        log_file = logs_dir / file_name
 
-        if not Path.exists(Path(f"logs/{file_name}").resolve()):
-            Path(f"logs/{file_name}").touch()
+        # Ensure logs directory exists
+        logs_dir.mkdir(exist_ok=True)
+
+        # Ensure log file exists
+        log_file.touch(exist_ok=True)
 
         logger = Logger(__name__)
         logger.setLevel(logging.DEBUG)
-        file_handler = logging.FileHandler(f"logs/{file_name}")
 
+        file_handler = logging.FileHandler(log_file)
         formatter = logging.Formatter(
             fmt="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
             datefmt="%Y-%m-%d %H:%M:%S",
         )
         file_handler.setFormatter(formatter)
-
         logger.addHandler(file_handler)
 
         return logger
