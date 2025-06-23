@@ -78,10 +78,10 @@ def create_periodic_notifications(notifier: Notifier, app: MainApplication) -> N
     ]
 
     notifier.periodically_send_data(
-        info, 5, (Button("Run", on_pressed=on_run_pressed),)
+        info, 3600, (Button("Run", on_pressed=on_run_pressed),)
     )
     notifier.periodically_send_data(
-        info2, 7, (Button("Run", on_pressed=on_run_pressed),)
+        info2, 3630, (Button("Run", on_pressed=on_run_pressed),)
     )
 
 
