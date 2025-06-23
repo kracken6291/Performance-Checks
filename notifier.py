@@ -45,10 +45,8 @@ class Notifier:
         logs_dir = script_dir / "logs"
         log_file = logs_dir / file_name
 
-        # Ensure logs directory exists
         logs_dir.mkdir(exist_ok=True)
 
-        # Ensure log file exists
         log_file.touch(exist_ok=True)
 
         logger = Logger(__name__)
@@ -111,7 +109,6 @@ class Notifier:
                     await asyncio.sleep(delay_interval - check_interval)
                 await asyncio.sleep(check_interval)
 
-        # Schedule the coroutine *from within* the correct loop thread
         def schedule():
             task = self._loop.create_task(send_conditional_notification())
             self._tasks.append(task)

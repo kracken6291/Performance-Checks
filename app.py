@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 import psutil
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-from format import (  # Assuming this formats the figure globally
+from format import (
     format_bar_axes,
     format_figure,
 )
@@ -33,7 +33,7 @@ class InfoScreenData:
     log_file: str | Path
     data_factory: Callable[[], dict[str, float]]
     graph_name: str
-    unit: str | None = None  # Optional unit for the graph, e.g., "MB", "GHz"
+    unit: str | None = None
 
 
 @runtime_checkable
@@ -63,7 +63,7 @@ class InfoScreen(tk.Frame, Screen):
 
         self.columnconfigure(
             list(range(10)), weight=1
-        )  # Create 10 columns with equal weight
+        )
 
         self.rowconfigure(1, weight=1)
 
@@ -145,7 +145,6 @@ class GraphScreen(tk.Frame, Screen):
             """
 
             def format_name(name: str) -> str:
-                # Split on common separators and return the first part
                 split_name = re.split(r"[.\-_]", name)[0].strip()
                 return split_name[:7]
 
@@ -159,7 +158,7 @@ class GraphScreen(tk.Frame, Screen):
                 except (psutil.NoSuchProcess, psutil.AccessDenied):
                     continue
 
-            # Sort by memory usage and convert to gigabytes
+
             sorted_items = sorted(
                 memory_by_name.items(), key=lambda item: item[1], reverse=True
             )
@@ -312,7 +311,7 @@ class MainApplication:
                 func()
         except queue.Empty:
             pass
-        self.root.after(50, self.process_queue)  # Check again in 50ms
+        self.root.after(50, self.process_queue)
 
     def stop(self):
         self.stop_event.set()
