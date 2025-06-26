@@ -37,20 +37,24 @@ class Notifier:
         self._thread.start()
 
         self._log_lookup = {}
+        self._data_dict = {}
+
         for name in ["cpu.log", "misc.log", "ram.log", "swap_mem.log"]:
             self._log_lookup[name] = self._create_logger(name)
 
     def _create_logger(self, file_name: str) -> Logger:
+        logger = Logger(__name__ + "." + file_name.removesuffix(".log"))
+        logger.setLevel(logging.DEBUG)
+
+        if logger.hasHandlers():
+            raise ValueError("Logger already has handlers")
+
         script_dir = Path(__file__).resolve().parent
         logs_dir = script_dir / "logs"
         log_file = logs_dir / file_name
 
         logs_dir.mkdir(exist_ok=True)
-
         log_file.touch(exist_ok=True)
-
-        logger = Logger(__name__)
-        logger.setLevel(logging.DEBUG)
 
         file_handler = logging.FileHandler(log_file)
         formatter = logging.Formatter(
@@ -58,6 +62,7 @@ class Notifier:
             datefmt="%Y-%m-%d %H:%M:%S",
         )
         file_handler.setFormatter(formatter)
+        
         logger.addHandler(file_handler)
 
         return logger
@@ -86,9 +91,40 @@ class Notifier:
         elif isinstance(data, str):
             logger.info(data)
 
+    def _create_periodic_message(self, data: list[DumpInfo]) -> str:
+        message = ""
+        self._data_dict.clear()
+
+        for info in data:
+            supplied = info.supplier()
+            sub_message = ""
+
+            unit = info.unit
+
+            if isinstance(supplied, str):
+                if isinstance(unit, tuple):
+                    unit = unit[0]
+                sub_message = f"{info.message}: {supplied}{unit if unit else ''}"
+            elif isinstance(supplied, Collection) and not isinstance(
+                supplied, str | bytes
+            ):
+                sub_message = f"{info.message}: " + " - ".join(
+                    f"{data}{unit[i] if unit and i < len(unit) else ''}"
+                    for i, data in enumerate(supplied)
+                )
+            else:
+                sub_message = f"{info.message}: {supplied}{unit if unit else ''}"
+
+            if info.log_path:
+                self._data_dict[sub_message] = info.log_path
+
+            message += sub_message + "\n"
+
+        return message
+
     def create_conditional_notification(
         self,
-        notification: Notification,
+        notification_supplier: Callable[[], Notification],
         condition: Callable[[], bool],
         temporary: bool = False,
         log_info: str | dict[str, str] | None = None,
@@ -98,6 +134,8 @@ class Notifier:
         async def send_conditional_notification():
             while True:
                 if condition():
+                    notification = notification_supplier()
+
                     if isinstance(log_info, dict):
                         for message, file_path in log_info.items():
                             self._log(file_path, message)
@@ -121,40 +159,17 @@ class Notifier:
         delay: float,
         buttons: tuple[Button, ...] = (),
     ):
-        message = ""
-        data_dict = {}
         start = time.monotonic()
 
-        for info in data:
-            supplied = info.supplier()
-            sub_message = ""
-
-            unit = info.unit
-
-            if isinstance(supplied, str):
-                if isinstance(unit, tuple):
-                    unit = unit[0]
-                sub_message = f"{info.message}: {supplied}{unit if unit else ''}"
-            elif isinstance(supplied, Collection) and not isinstance(
-                supplied, str | bytes
-            ):
-                sub_message = f"{info.message}: " + " - ".join(
-                    f"{data}{unit[i] if unit and i < len(unit) else ''}"
-                    for i, data in enumerate(supplied)
-                )
-            else:
-                sub_message = f"{info.message}: {supplied}{unit if unit else ''}"
-
-            if info.log_path:
-                data_dict[sub_message] = info.log_path
-
-            message += sub_message + "\n"
-
         self.create_conditional_notification(
-            Notification(title="Performance Info", message=message, buttons=buttons),
+            lambda: Notification(
+                title="Performance Info",
+                message=self._create_periodic_message(data),
+                buttons=buttons,
+            ),
             condition=lambda: time.monotonic() - start > delay,
             delay_interval=delay,
-            log_info=data_dict,
+            log_info=self._data_dict,
             temporary=False,
         )
 

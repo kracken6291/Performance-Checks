@@ -61,9 +61,7 @@ class InfoScreen(tk.Frame, Screen):
         self.grid(row=0, column=0, sticky="nsew")
         self.initialized = False
 
-        self.columnconfigure(
-            list(range(10)), weight=1
-        )
+        self.columnconfigure(list(range(10)), weight=1)
 
         self.rowconfigure(1, weight=1)
 
@@ -157,7 +155,6 @@ class GraphScreen(tk.Frame, Screen):
                     memory_by_name[name] = memory_by_name.get(name, 0) + mem
                 except (psutil.NoSuchProcess, psutil.AccessDenied):
                     continue
-
 
             sorted_items = sorted(
                 memory_by_name.items(), key=lambda item: item[1], reverse=True

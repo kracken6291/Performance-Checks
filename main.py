@@ -10,21 +10,25 @@ from notifier import DumpInfo, Notifier
 
 def create_conditional_notifications(notifier: Notifier) -> None:
     notifier.create_conditional_notification(
-        Notification(
+        lambda: Notification(
             title="CPU usage above 80%",
             message="Could be from opening new application or a more serious issue",
             urgency=Urgency.Critical,
         ),
         lambda: psutil.cpu_percent(0.1) > 80,
+        log_info="cpu.log",
+        delay_interval=300,
     )
 
     notifier.create_conditional_notification(
-        Notification(
+        lambda: Notification(
             title="RAM usage above 80%",
             message=f"Current Usage {psutil.virtual_memory().percent}",
             urgency=Urgency.Critical,
         ),
         lambda: psutil.virtual_memory().percent > 80,
+        log_info="ram.log",
+        delay_interval=300,
     )
 
 
