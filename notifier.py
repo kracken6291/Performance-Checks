@@ -62,7 +62,7 @@ class Notifier:
             datefmt="%Y-%m-%d %H:%M:%S",
         )
         file_handler.setFormatter(formatter)
-        
+
         logger.addHandler(file_handler)
 
         return logger

@@ -1,3 +1,22 @@
 2025-06-26 16:19:55 - notifier.cpu - INFO - CPU Usage: 11.7%
 2025-06-26 16:20:01 - notifier.cpu - INFO - CPU Usage: 18.4%
 2025-06-26 16:20:06 - notifier.cpu - INFO - CPU Usage: 12.5%
+2025-06-26 17:37:21 - notifier.cpu - CRITICAL - CPU usage above 80% : Could be from opening new application or a more serious issue
+2025-06-26 17:46:24 - notifier.cpu - CRITICAL - CPU usage above 80% : Could be from opening new application or a more serious issue
+2025-06-26 18:24:49 - notifier.cpu - CRITICAL - CPU usage above 80% : Could be from opening new application or a more serious issue
+2025-06-26 18:24:50 - notifier.cpu - INFO - CPU Usage: 83.7%
+2025-06-26 19:24:50 - notifier.cpu - INFO - CPU Usage: 6.5%
+2025-06-26 19:56:41 - notifier.cpu - CRITICAL - CPU usage above 80% : Could be from opening new application or a more serious issue
+2025-06-26 20:24:50 - notifier.cpu - INFO - CPU Usage: 6.1%
+2025-06-26 21:21:45 - notifier.cpu - CRITICAL - CPU usage above 80% : Could be from opening new application or a more serious issue
+2025-06-26 21:24:50 - notifier.cpu - INFO - CPU Usage: 10.6%
+2025-06-26 21:36:49 - notifier.cpu - CRITICAL - CPU usage above 80% : Could be from opening new application or a more serious issue
+2025-06-26 21:56:41 - notifier.cpu - CRITICAL - CPU usage above 80% : Could be from opening new application or a more serious issue
+2025-06-26 22:23:26 - notifier.cpu - CRITICAL - CPU usage above 80% : Could be from opening new application or a more serious issue
+2025-06-26 22:24:50 - notifier.cpu - INFO - CPU Usage: 8.5%
+2025-06-26 22:43:22 - notifier.cpu - CRITICAL - CPU usage above 80% : Could be from opening new application or a more serious issue
+2025-06-26 22:44:33 - notifier.cpu - CRITICAL - CPU usage above 80% : Could be from opening new application or a more serious issue
+2025-06-26 22:44:47 - notifier.cpu - CRITICAL - CPU usage above 80% : Could be from opening new application or a more serious issue
+2025-06-26 23:27:59 - notifier.cpu - CRITICAL - CPU usage above 80% : Current Usage: 74.0%
+2025-06-26 23:29:20 - notifier.cpu - CRITICAL - CPU usage above 80% : Current Usage: 74.1%
+2025-06-26 23:35:23 - notifier.cpu - CRITICAL - CPU usage above 80% : Current Usage: 0.0%

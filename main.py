@@ -1,5 +1,9 @@
+import asyncio
 import signal
 import sys
+import threading
+import time
+from collections.abc import Callable
 
 import psutil
 from desktop_notifier import Button, Notification, Urgency
@@ -7,15 +11,38 @@ from desktop_notifier import Button, Notification, Urgency
 from app import GraphScreen, InfoScreen, MainApplication, bytes_to_gigabytes
 from notifier import DumpInfo, Notifier
 
+_debounce_loop = asyncio.new_event_loop()
+
+def _start_loop():
+    asyncio.set_event_loop(_debounce_loop)
+    _debounce_loop.run_forever()
+
+_debounce_thread = threading.Thread(target=_start_loop, daemon=True)
+_debounce_thread.start()
+
+def debounce(supplier: Callable[[], bool], debounce_time: float):
+    async def create_debounce():
+        start = _debounce_loop.time()
+        while _debounce_loop.time() - start < debounce_time:
+            if not supplier():
+                return False
+            await asyncio.sleep(0.01)
+        return True
+    
+    if not supplier():
+        return False
+    
+    future = asyncio.run_coroutine_threadsafe(create_debounce(), _debounce_loop)
+    return future.result()
 
 def create_conditional_notifications(notifier: Notifier) -> None:
     notifier.create_conditional_notification(
         lambda: Notification(
             title="CPU usage above 80%",
-            message="Could be from opening new application or a more serious issue",
+            message=f"Current Usage: {psutil.cpu_percent(0.1)}%",
             urgency=Urgency.Critical,
         ),
-        lambda: psutil.cpu_percent(0.1) > 80,
+        lambda: debounce(lambda: psutil.cpu_percent(0.1) > 80, 2),
         log_info="cpu.log",
         delay_interval=300,
     )
@@ -23,10 +50,10 @@ def create_conditional_notifications(notifier: Notifier) -> None:
     notifier.create_conditional_notification(
         lambda: Notification(
             title="RAM usage above 80%",
-            message=f"Current Usage {psutil.virtual_memory().percent}",
+            message=f"Current Usage: {psutil.virtual_memory().percent}%",
             urgency=Urgency.Critical,
         ),
-        lambda: psutil.virtual_memory().percent > 80,
+        lambda: debounce(lambda: psutil.virtual_memory().percent > 80, 2),
         log_info="ram.log",
         delay_interval=300,
     )
@@ -90,6 +117,9 @@ def create_periodic_notifications(notifier: Notifier, app: MainApplication) -> N
 
 
 def handle_exit(*args):
+    _debounce_loop.stop()
+    _debounce_thread.join()
+
     notifier.stop()
     app.stop()
     sys.exit(0)
