@@ -141,3 +141,5 @@
 2025-07-04 03:22:55 - notifier.swap_mem - INFO - Extra Swap Mem Info: 9.6GB - 1.4GB
 2025-07-04 04:20:28 - notifier.swap_mem - INFO - Swap Mem Usage: 6.3%
 2025-07-04 04:23:25 - notifier.swap_mem - INFO - Extra Swap Mem Info: 10.3GB - 0.7GB
+2025-07-04 12:31:22 - notifier.swap_mem - INFO - Swap Mem Usage: 6.4%
+2025-07-04 12:31:51 - notifier.swap_mem - INFO - Extra Swap Mem Info: 9.4GB - 0.6GB

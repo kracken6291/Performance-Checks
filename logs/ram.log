@@ -265,3 +265,9 @@
 2025-07-04 04:20:28 - notifier.ram - INFO - RAM Usage: 62.2%
 2025-07-04 04:23:25 - notifier.ram - INFO - Extra RAM Info: 5.7GB - 9.8GB
 2025-07-04 04:34:18 - notifier.ram - CRITICAL - RAM usage above 80% : Current Usage: 80.8%
+2025-07-04 12:11:40 - notifier.ram - CRITICAL - RAM usage above 80% : Current Usage: 85.4%
+2025-07-04 12:16:42 - notifier.ram - CRITICAL - RAM usage above 80% : Current Usage: 83.2%
+2025-07-04 12:21:44 - notifier.ram - CRITICAL - RAM usage above 80% : Current Usage: 83.0%
+2025-07-04 12:26:46 - notifier.ram - CRITICAL - RAM usage above 80% : Current Usage: 82.1%
+2025-07-04 12:31:22 - notifier.ram - INFO - RAM Usage: 69.0%
+2025-07-04 12:31:51 - notifier.ram - INFO - Extra RAM Info: 5.3GB - 10.2GB
