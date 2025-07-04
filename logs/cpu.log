@@ -20,3 +20,72 @@
 2025-06-26 23:27:59 - notifier.cpu - CRITICAL - CPU usage above 80% : Current Usage: 74.0%
 2025-06-26 23:29:20 - notifier.cpu - CRITICAL - CPU usage above 80% : Current Usage: 74.1%
 2025-06-26 23:35:23 - notifier.cpu - CRITICAL - CPU usage above 80% : Current Usage: 0.0%
+2025-06-27 00:38:17 - notifier.cpu - INFO - CPU Usage: 2.4%
+2025-06-27 03:08:37 - notifier.cpu - INFO - CPU Usage: 26.8%
+2025-06-27 07:51:39 - notifier.cpu - INFO - CPU Usage: 21.6%
+2025-06-27 10:30:38 - notifier.cpu - INFO - CPU Usage: 19.8%
+2025-06-27 14:56:56 - notifier.cpu - CRITICAL - CPU usage above 80% : Current Usage: 86.1%
+2025-06-27 14:56:58 - notifier.cpu - INFO - CPU Usage: 88.7%
+2025-06-27 15:57:00 - notifier.cpu - INFO - CPU Usage: 7.4%
+2025-06-27 16:57:00 - notifier.cpu - INFO - CPU Usage: 15.2%
+2025-06-27 17:59:59 - notifier.cpu - INFO - CPU Usage: 78.7%
+2025-06-27 19:18:57 - notifier.cpu - INFO - CPU Usage: 36.8%
+2025-06-27 21:13:03 - notifier.cpu - INFO - CPU Usage: 67.0%
+2025-06-27 22:13:23 - notifier.cpu - INFO - CPU Usage: 6.0%
+2025-06-27 23:13:24 - notifier.cpu - INFO - CPU Usage: 10.0%
+2025-06-28 00:13:42 - notifier.cpu - INFO - CPU Usage: 73.3%
+2025-06-28 01:17:55 - notifier.cpu - INFO - CPU Usage: 1.4%
+2025-06-28 08:42:04 - notifier.cpu - INFO - CPU Usage: 85.6%
+2025-06-28 13:23:48 - notifier.cpu - INFO - CPU Usage: 77.9%
+2025-06-28 15:08:51 - notifier.cpu - INFO - CPU Usage: 0.0%
+2025-06-28 16:08:52 - notifier.cpu - INFO - CPU Usage: 7.4%
+2025-06-28 17:08:52 - notifier.cpu - INFO - CPU Usage: 6.3%
+2025-06-28 23:17:43 - notifier.cpu - INFO - CPU Usage: 77.8%
+2025-06-29 11:44:42 - notifier.cpu - INFO - CPU Usage: 43.7%
+2025-06-29 20:26:12 - notifier.cpu - INFO - CPU Usage: 65.9%
+2025-06-29 21:26:12 - notifier.cpu - INFO - CPU Usage: 9.8%
+2025-06-29 22:26:12 - notifier.cpu - INFO - CPU Usage: 15.5%
+2025-06-30 07:45:30 - notifier.cpu - INFO - CPU Usage: 86.2%
+2025-06-30 14:25:38 - notifier.cpu - INFO - CPU Usage: 80.7%
+2025-06-30 15:25:38 - notifier.cpu - INFO - CPU Usage: 17.6%
+2025-06-30 16:25:38 - notifier.cpu - INFO - CPU Usage: 23.5%
+2025-06-30 17:25:39 - notifier.cpu - INFO - CPU Usage: 11.1%
+2025-06-30 18:25:39 - notifier.cpu - INFO - CPU Usage: 7.3%
+2025-07-01 14:25:19 - notifier.cpu - INFO - CPU Usage: 0.0%
+2025-07-01 15:07:49 - notifier.cpu - CRITICAL - CPU usage above 80% : Current Usage: 89.7%
+2025-07-01 15:25:19 - notifier.cpu - INFO - CPU Usage: 17.0%
+2025-07-01 16:25:20 - notifier.cpu - INFO - CPU Usage: 3.6%
+2025-07-01 17:33:58 - notifier.cpu - INFO - CPU Usage: 36.0%
+2025-07-01 18:33:58 - notifier.cpu - INFO - CPU Usage: 10.8%
+2025-07-01 19:33:58 - notifier.cpu - INFO - CPU Usage: 3.2%
+2025-07-01 20:33:58 - notifier.cpu - INFO - CPU Usage: 4.4%
+2025-07-01 22:34:57 - notifier.cpu - INFO - CPU Usage: 3.2%
+2025-07-01 23:34:58 - notifier.cpu - INFO - CPU Usage: 4.3%
+2025-07-02 00:34:58 - notifier.cpu - INFO - CPU Usage: 0.0%
+2025-07-02 01:34:58 - notifier.cpu - INFO - CPU Usage: 4.7%
+2025-07-02 14:38:09 - notifier.cpu - INFO - CPU Usage: 14.3%
+2025-07-02 15:49:27 - notifier.cpu - INFO - CPU Usage: 44.4%
+2025-07-02 16:49:27 - notifier.cpu - INFO - CPU Usage: 2.3%
+2025-07-02 19:51:01 - notifier.cpu - INFO - CPU Usage: 20.0%
+2025-07-02 22:05:11 - notifier.cpu - INFO - CPU Usage: 39.8%
+2025-07-02 23:05:11 - notifier.cpu - INFO - CPU Usage: 8.1%
+2025-07-03 00:07:02 - notifier.cpu - INFO - CPU Usage: 18.3%
+2025-07-03 02:37:50 - notifier.cpu - CRITICAL - CPU usage above 80% : Current Usage: 83.8%
+2025-07-03 02:37:51 - notifier.cpu - INFO - CPU Usage: 38.5%
+2025-07-03 07:55:18 - notifier.cpu - INFO - CPU Usage: 34.3%
+2025-07-03 12:15:08 - notifier.cpu - INFO - CPU Usage: 15.7%
+2025-07-03 14:44:29 - notifier.cpu - INFO - CPU Usage: 81.7%
+2025-07-03 15:44:29 - notifier.cpu - INFO - CPU Usage: 3.7%
+2025-07-03 16:44:29 - notifier.cpu - INFO - CPU Usage: 5.9%
+2025-07-03 17:44:29 - notifier.cpu - INFO - CPU Usage: 0.0%
+2025-07-03 19:18:37 - notifier.cpu - INFO - CPU Usage: 89.6%
+2025-07-03 20:05:01 - notifier.cpu - CRITICAL - CPU usage above 80% : Current Usage: 87.9%
+2025-07-03 20:18:37 - notifier.cpu - INFO - CPU Usage: 9.9%
+2025-07-03 21:18:37 - notifier.cpu - INFO - CPU Usage: 4.2%
+2025-07-03 22:20:25 - notifier.cpu - INFO - CPU Usage: 23.8%
+2025-07-03 23:20:27 - notifier.cpu - INFO - CPU Usage: 20.8%
+2025-07-04 00:20:27 - notifier.cpu - INFO - CPU Usage: 15.3%
+2025-07-04 01:20:27 - notifier.cpu - INFO - CPU Usage: 4.4%
+2025-07-04 02:20:27 - notifier.cpu - INFO - CPU Usage: 14.0%
+2025-07-04 03:20:27 - notifier.cpu - INFO - CPU Usage: 41.1%
+2025-07-04 04:20:28 - notifier.cpu - INFO - CPU Usage: 19.6%

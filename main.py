@@ -2,7 +2,6 @@ import asyncio
 import signal
 import sys
 import threading
-import time
 from collections.abc import Callable
 
 import psutil
@@ -13,12 +12,15 @@ from notifier import DumpInfo, Notifier
 
 _debounce_loop = asyncio.new_event_loop()
 
+
 def _start_loop():
     asyncio.set_event_loop(_debounce_loop)
     _debounce_loop.run_forever()
 
+
 _debounce_thread = threading.Thread(target=_start_loop, daemon=True)
 _debounce_thread.start()
+
 
 def debounce(supplier: Callable[[], bool], debounce_time: float):
     async def create_debounce():
@@ -28,12 +30,13 @@ def debounce(supplier: Callable[[], bool], debounce_time: float):
                 return False
             await asyncio.sleep(0.01)
         return True
-    
+
     if not supplier():
         return False
-    
+
     future = asyncio.run_coroutine_threadsafe(create_debounce(), _debounce_loop)
     return future.result()
+
 
 def create_conditional_notifications(notifier: Notifier) -> None:
     notifier.create_conditional_notification(
